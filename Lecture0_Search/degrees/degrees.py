@@ -84,6 +84,7 @@ def main():
             print(f"{i + 1}: {person1} and {person2} starred in {movie}")
 
 
+
 def shortest_path(source, target):
     """
     Returns the shortest list of (movie_id, person_id) pairs
@@ -91,16 +92,43 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
-    QueueFrontier myqueue;
+    myqueue = StackFrontier()
     explored = set()
-    myqueue.add(source)
+    finalList = []
+    node = Node(source, None, None)
+    myqueue.add(node)
 
     while(not myqueue.empty()):
     	node = myqueue.remove()
-    	if(node == target):
+    	explored.add(node)
+
+    	if node.state == target:
+    		movies = []
+    		stars = []
+
+    		while node.parent != None:
+    			finalList=[]
+    			movies.append(node.action)
+    			stars.append(node.state)
+    			node = node.parent
+
+    			movies.reverse()
+    			stars.reverse()
+
+    			for i in range(len(movies)):
+    				finalList.append((movies[i],stars[i]))
+
+    			return finalList	
+    	
+    	for action, state in neighbors_for_person(node.state):
+    		if action == None and state == None:
+    			return None
+    		else:
+    			nei = Node(state, node.state, action)
+    			myqueue.add(nei)
     		
 
-    raise NotImplementedError
+    return None
 
 
 def person_id_for_name(name):
