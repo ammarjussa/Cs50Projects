@@ -100,7 +100,7 @@ def shortest_path(source, target):
 
     while(not myqueue.empty()):
     	node = myqueue.remove()
-    	explored.add(node)
+    	explored.add(node.state)
 
     	if node.state == target:
     		movies = []
@@ -124,8 +124,9 @@ def shortest_path(source, target):
     		if action == None and state == None:
     			return None
     		else:
-    			nei = Node(state, node.state, action)
-    			myqueue.add(nei)
+    			if state not in explored:
+    				nei = Node(state, node.state, action)
+    				myqueue.add(nei)
     		
 
     return None
