@@ -126,7 +126,7 @@ def shortest_path(source, target):
     		else:
     			if state not in explored:
     				nei = Node(state, node.state, action)
-    				myqueue.add(nei)
+    			 	myqueue.add(nei)
     		
 
     return None
